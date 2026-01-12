@@ -8,10 +8,8 @@ const MemoryGame = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameWon, setGameWon] = useState(false);
 
-  // Card emojis for the game
   const cardSymbols = ['🚀', '🛸', '⭐', '🌙', '🪐', '☄️', '🌟', '🌌'];
 
-  // Initialize game
   const initializeGame = () => {
     const shuffledCards = [...cardSymbols, ...cardSymbols]
       .sort(() => Math.random() - 0.5)
@@ -30,7 +28,6 @@ const MemoryGame = () => {
     setGameWon(false);
   };
 
-  // Handle card click
   const handleCardClick = (index) => {
     if (!gameStarted || gameWon) return;
     if (flippedIndices.length === 2) return;
@@ -45,16 +42,13 @@ const MemoryGame = () => {
       const [firstIndex, secondIndex] = newFlippedIndices;
       
       if (cards[firstIndex].symbol === cards[secondIndex].symbol) {
-        // Match found
         setMatchedPairs([...matchedPairs, cards[firstIndex].symbol]);
         setFlippedIndices([]);
-        
-        // Check if game is won
+
         if (matchedPairs.length + 1 === cardSymbols.length) {
           setTimeout(() => setGameWon(true), 500);
         }
       } else {
-        // No match, flip back after delay
         setTimeout(() => {
           setFlippedIndices([]);
         }, 1000);
@@ -62,7 +56,6 @@ const MemoryGame = () => {
     }
   };
 
-  // Check if card should be shown
   const isCardVisible = (index, symbol) => {
     return flippedIndices.includes(index) || matchedPairs.includes(symbol);
   };
@@ -89,7 +82,6 @@ const MemoryGame = () => {
       fontFamily: 'Arial, sans-serif',
       overflow: 'auto'
     }}>
-      {/* Header */}
       <div style={{
         textAlign: 'center',
         marginBottom: '30px',
@@ -111,7 +103,6 @@ const MemoryGame = () => {
         </p>
       </div>
 
-      {/* Stats */}
       {gameStarted && (
         <div style={{
           display: 'flex',
@@ -126,7 +117,6 @@ const MemoryGame = () => {
         </div>
       )}
 
-      {/* Game Board */}
       {gameStarted ? (
         <div style={{
           display: 'grid',
@@ -205,7 +195,6 @@ const MemoryGame = () => {
         </div>
       )}
 
-      {/* Reset Button */}
       {gameStarted && (
         <button
           onClick={initializeGame}
@@ -234,7 +223,6 @@ const MemoryGame = () => {
         </button>
       )}
 
-      {/* Win Modal */}
       {gameWon && (
         <div style={{
           position: 'fixed',
